@@ -7,13 +7,15 @@ const app = express();
 //Template engine
 app.engine("handlebars", handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+app.use('/css', express.static('css'));
+app.use('/js', express.static('js'));
 
 
 //Routes and Templates
-app.get("/:id?", function(req, res){
+app.get("/", function(req, res){
    /*res.sendFile(__dirname+"/index.html"); 
    console.log(req.params.id);*/
-   res.render('index', {id:req.params.id});
+   res.render('index');
 });
 
 //Start server
