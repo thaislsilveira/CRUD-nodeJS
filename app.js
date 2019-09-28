@@ -12,6 +12,7 @@ const sql=mysql.createConnection({
 });
 
 sql.query("use nodejs");
+app.use('/img', express.static('img'));
 
 //Template engine
 app.engine("handlebars", handlebars({defaultLayout: 'main'}));
@@ -29,6 +30,17 @@ app.get("/", function(req, res){
 
 app.get("/inserir", function(req, res){
     res.render("inserir");
+});
+app.get("/select/:id?", function(req, res){
+    if(!req.params.id){
+        sql.query("select * from user order by id asc", function(err, results, fields){
+            res.render('select', {data:results})
+        });
+    }else {
+        sql.query("select * from user where id=? order by id asc", [req.params.id] , function(err, results, fields){
+            res.render('select', {data:results})
+        });
+    }
 });
 
 app.post("/controllerForm", urlencodeParser, function(req, res){
