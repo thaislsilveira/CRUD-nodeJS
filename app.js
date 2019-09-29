@@ -43,6 +43,11 @@ app.get("/select/:id?", function(req, res){
     }
 });
 
+app.get("/deletar/:id", function(req, res){
+    sql.query("Delete from user where id=?", [req.params.id]);
+    res.render('deletar');
+});
+
 app.post("/controllerForm", urlencodeParser, function(req, res){
     sql.query("insert into user values (?,?,?)", [req.body.id, req.body.name, req.body.age]);
     res.render('controllerForm', {name:req.body.name});

@@ -7,8 +7,10 @@
         </tr>
         {{#data}}
          <tr>
-             <td><a href='update'><img src='/img/edite.png'></a>
-             <a href='deletar'><img src='/img/lixeira.png'></a></td>
+             <td>
+                 <a href='update/{{id}}'><img src='/img/edite.png'></a>
+                <a href='deletar/{{id}}' class='deletar'><img src='/img/lixeira.png'></a> 
+            </td>
             <td>{{id}}</td>
             <td>{{name}}</td>
             <td>{{age}}</td>            
