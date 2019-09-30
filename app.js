@@ -53,15 +53,16 @@ app.get("/deletar/:id", function(req, res){
     res.render('deletar');
 });
 
-app.get("/update/:id", function (req, res){
+app.get("/update/:id", function(req,res){
     sql.query("select * from user where id=?", [req.params.id], function(err, results, fields){
-    res.render('update', {id:req.params.id, name:results[0].name, age:results[0].age});
-    });   
+        res.render('update', {id:req.params.id, name:results[0].name, age:results[0].age});
+    });
+    
 });
 
 app.post("/controllerUpdate", urlencodeParser, function(req, res){
-    sql.query("update user set name=?, age=? where id=?",[req.body.name, req.body.age, req.body.id]);
-    res.render('controllerUpdate');
+    sql.query("update user set name=?, age=? where id=?", [req.body.name, req.body.age, req.body.id]);
+    res.render('ControllerUpdate');
 });
 
 //Start server
