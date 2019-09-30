@@ -43,14 +43,25 @@ app.get("/select/:id?", function(req, res){
     }
 });
 
+app.post("/controllerForm", urlencodeParser, function(req, res){
+    sql.query("insert into user values (?,?,?)", [req.body.id, req.body.name, req.body.age]);
+    res.render('controllerForm', {name:req.body.name});
+});
+
 app.get("/deletar/:id", function(req, res){
     sql.query("Delete from user where id=?", [req.params.id]);
     res.render('deletar');
 });
 
-app.post("/controllerForm", urlencodeParser, function(req, res){
-    sql.query("insert into user values (?,?,?)", [req.body.id, req.body.name, req.body.age]);
-    res.render('controllerForm', {name:req.body.name});
+app.get("/update/:id", function (req, res){
+    sql.query("select * from user where id=?", [req.params.id], function(err, results, fields){
+    res.render('update', {id:req.params.id, name:results[0].name, age:results[0].age});
+    });   
+});
+
+app.post("/controllerUpdate", urlencodeParser, function(req, res){
+    sql.query("update user set name=?, age=? where id=?",[req.body.name, req.body.age, req.body.id]);
+    res.render('controllerUpdate');
 });
 
 //Start server
